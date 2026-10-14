@@ -1,0 +1,25 @@
+{
+  "name": "tandil-tech-week",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Réplica estática de tandiltechweek.com — HTML, CSS y JS sin dependencias ni paso de build",
+  "keywords": [
+    "tandil",
+    "tech-week",
+    "static-site",
+    "replica"
+  ],
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve:py": "python3 serve.py",
+    "build": "python3 tools/build.py",
+    "check": "python3 tools/check.py",
+    "format:css": "npx --yes prettier --write assets/css/style.css"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

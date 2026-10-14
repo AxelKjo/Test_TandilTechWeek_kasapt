@@ -1,0 +1,10 @@
+# Dependencias y artefactos locales
+node_modules/
+npm-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.local
