@@ -773,6 +773,92 @@ video {
 
 
 /* --------------------------------------------------------------------------
+   8.1 Carrusel de logos (Organizan + Acompañan)
+   -------------------------------------------------------------------------- */
+
+.logo-marquee {
+  padding-block: var(--space-m);
+  overflow: hidden;
+  background: var(--paper);
+  border-block: 1px solid var(--line);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.logo-marquee__track {
+  --logo-scale: 1;
+
+  display: flex;
+  width: max-content;
+  animation: logo-marquee 60s linear infinite;
+}
+
+/* Pausa al pasar el puntero, igual que el marquee de texto. */
+.logo-marquee:hover .logo-marquee__track {
+  animation-play-state: paused;
+}
+
+/* Cada set repite la misma tanda de logos: al desplazar el track -50% el
+   bucle queda exacto (el padding-right cierra el gap entre set y set). */
+.logo-marquee__set {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-xl);
+  padding-right: var(--space-xl);
+}
+
+.logo-tile {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 10rem;
+  color: var(--ink-muted);
+  transition: color 0.18s var(--ease);
+}
+
+/* El SVG (monocromo en assets/logos/) se pinta con currentColor vía mask:
+   un solo archivo por logo y color animable sin duplicar markup. */
+.logo-tile::before {
+  content: "";
+  display: block;
+  height: calc(var(--logo-h, 1.75rem) * var(--logo-scale));
+  aspect-ratio: var(--logo-ar);
+  max-width: 100%;
+  background: currentColor;
+  -webkit-mask: var(--logo) no-repeat center / contain;
+  mask: var(--logo) no-repeat center / contain;
+}
+
+a.logo-tile:hover,
+a.logo-tile:focus-visible {
+  color: var(--blue);
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 599.98px) {
+  .logo-marquee__track {
+    --logo-scale: 0.8;
+  }
+
+  .logo-marquee__set {
+    gap: var(--space-l);
+    padding-right: var(--space-l);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
    9. Secciones y tarjetas
    -------------------------------------------------------------------------- */
 
@@ -1329,6 +1415,17 @@ a.card:hover .btn .arrow {
   .marquee-track {
     animation: none;
     transform: none;
+  }
+
+  .logo-marquee__track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .logo-marquee__set[aria-hidden="true"] {
+    display: none;
   }
 
   .gsap-card {
